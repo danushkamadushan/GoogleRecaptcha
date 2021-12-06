@@ -1,11 +1,11 @@
 # GoogleRecaptcha
 Google Captcha MVC.NET Core
 
-ASP.NET Core
-Identity Login
-Twilio OTP Notification to mobile
-Google Recaptcha - reCAPTCHA type: v2 Tickbox
-6 charactor OTP
+ASP.NET Core<br />
+Identity Login<br />
+Twilio OTP Notification to mobile<br />
+Google Recaptcha - reCAPTCHA type: v2 Tickbox<br />
+6 charactor OTP<br />
 
 replace your recaptcha site key in this file TwoFactorLogin.cshtml.
 replace twilio keys and recaptcha secret key in appsetting.json.
