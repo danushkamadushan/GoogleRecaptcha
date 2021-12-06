@@ -1,0 +1,70 @@
+﻿
+@model TwoFactor
+
+@{
+    ViewData["Title"] = "Two Factor Authentication";
+}
+
+<script type="text/javascript">
+        var verifyCallback = function (response) {
+            $("#token").val(response);
+        };
+
+        var onloadCallback = function () {
+            grecaptcha.render('render', {
+                'sitekey': 'replace your recaptcha sitekey',
+                'callback': verifyCallback
+            });
+        };
+    </script>
+
+
+<div class="row">
+
+    <div class="col-md-4">   </div>
+    <div class="col-md-4">
+        <section>
+            <form id="account" asp-controller="Account" asp-action="TwoFactorLogin" method="post">
+                <h1 class="text-center">@ViewData["Title"]</h1>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="@Model.TwoFactorCode"></label>
+                    <input asp-for="@Model.TwoFactorCode" class="form-control" />
+                    <span asp-validation-for="@Model.TwoFactorCode" class="text-danger"></span>
+
+                    <input hidden asp-for="@Model.Email" class="form-control" />
+                </div>
+
+                <div class="form-group text-center">
+                    @Html.Hidden("token")
+                    @{
+                        if (Model.LogginAttempt == 3)
+                        {
+                            <div id="render"></div>
+                        }
+                    }
+
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+
+            </form>
+        </section>
+    </div>
+    <div class="col-md-4">   </div>
+
+</div>
+
+@{
+    if (Model.LogginAttempt == 3)
+    {
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    }
+}
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
